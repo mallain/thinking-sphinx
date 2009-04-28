@@ -21,10 +21,22 @@ module ThinkingSphinx
       
       results.each_with_groupby_and_count { |result, group, count|
         facet_value = facet.value(result, group)
-        
-        self[name][facet_value]              ||= 0
-        self[name][facet_value]              += count
-        @attribute_values[name][facet_value]  = group
+
+        # Facet_value is not null
+      unless facet_value.nil?
+        unless facet_value.empty?
+          # If the facet_value is not a String Klass
+          unless facet_value.is_a?(String)
+            unless facet_value.first.nil?
+             facet_value = facet_value.first.send(facet.reference.columns.first.__name)
+            end
+          end
+
+          self[name][facet_value]              ||= 0
+          self[name][facet_value]              += count
+          @attribute_values[name][facet_value]  = group
+        end
+      end
       }
     end
     
