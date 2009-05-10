@@ -86,9 +86,15 @@ module ThinkingSphinx
         object.each do |o|
           # If the object is an Array
           if o.is_a? Array
-            o.first.send(column.__name)
+            # If the object first is not nil 
+	    unless o.first.nil?
+	      o.first.send(column.__name)
+ 	    end
           else
-            o.send(column.__name)
+            # If the object o is not nil		
+            unless o.nil?
+              o.send(column.__name)
+            end
           end
         end
       else
