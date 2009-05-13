@@ -87,9 +87,9 @@ module ThinkingSphinx
           # If the object is an Array
           if o.is_a? Array
             # If the object first is not nil 
-	    unless o.first.nil?
-	      o.first.send(column.__name)
- 	    end
+            unless o.first.nil?
+              o.first.send(column.__name)
+            end
           else
             # If the object o is not nil		
             unless o.nil?
